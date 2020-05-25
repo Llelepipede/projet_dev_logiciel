@@ -10,6 +10,7 @@
         # un joueur
             # vie ( 100 max )
             # bouclier( 30 max )
+            
         # des ressources ( 3 types )
             # bois
             # nouritures
@@ -51,20 +52,18 @@
     # consulter
     # supprimer
     # modifier
-    # sauvegarde des cartes deja créer
-
-
-
+    # sauvegarde des cartes de
+    # a créer
 
 
 #v test de home page v#
 
 
-
-
-
 #v les includes v#
 from math import *
+from menu import *
+from local import *
+from classes import *
 import pygame
 from random import *
 #^ les includes ^#
@@ -84,7 +83,7 @@ def quit_pygame():
     pygame.quit()
 
 
-
+ 
 
 def create_windows():
     dim_x = 1200  #set les dimension souhaité pour la fenetre
@@ -97,16 +96,14 @@ def create_windows():
 
 
 
-
 def boucle_jeu():
     end = 0
     while not end:
         for event in pygame.event.get():
             print(event)
+            end = menu_principal(event)
             if event.type == pygame.QUIT:
                 end = 1
-
-
 
 
 

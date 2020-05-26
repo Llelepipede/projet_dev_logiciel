@@ -10,7 +10,7 @@
         # un joueur
             # vie ( 100 max )
             # bouclier( 30 max )
-            
+
         # des ressources ( 3 types )
             # bois
             # nouritures
@@ -83,7 +83,7 @@ def quit_pygame():
     pygame.quit()
 
 
- 
+
 
 def create_windows():
     dim_x = 1200  #set les dimension souhaité pour la fenetre

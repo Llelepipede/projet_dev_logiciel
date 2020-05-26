@@ -21,7 +21,12 @@ class Carte:
         self.next = c_next
 
         Carte.id_carte += 1
-
+    
+    def index(self,id_carte):
+        i = 0
+        while (i < id_carte):
+            carte = self.next
+        return carte
 class Joueur:
     """Classe définissant un joueur caractérisé par :
     - son pseudo

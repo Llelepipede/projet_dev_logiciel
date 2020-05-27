@@ -64,6 +64,7 @@ from math import *
 from menu import *
 from local import *
 from classes import *
+from form import *
 import pygame
 from random import *
 #^ les includes ^#
@@ -73,8 +74,8 @@ from random import *
 def init_pygame():
 
     pygame.init()  #initialise le moteur pygame
-    create_windows()
-    boucle_jeu()
+    fenetre = create_windows()
+    boucle_jeu(fenetre)
     quit_pygame()
 
 
@@ -86,24 +87,23 @@ def quit_pygame():
 
 
 def create_windows():
-    dim_x = 1200  #set les dimension souhaité pour la fenetre
-    dim_y = 1000
-    pygame.display.set_mode((dim_x,dim_y))  #crée la fenetre de taille dim_x/dim_y
+    dim_x = 1300  #set les dimension souhaité pour la fenetre
+    dim_y = 0
+    fenetre = pygame.display.set_mode((dim_x,dim_y),pygame.FULLSCREEN)  #crée la fenetre de taille dim_x/dim_y
+
 
     pygame.display.set_caption('projet python')  #mets le titre de la fenetre
 
+    return fenetre
 #^ fonction d'initialisation de pygame ^#
 
 
 
-def boucle_jeu():
+def boucle_jeu(fenetre):
     end = 0
     while not end:
-        for event in pygame.event.get():
-            print(event)
-            end = menu_principal(event)
-            if event.type == pygame.QUIT:
-                end = 1
+
+        end = menu_principal(fenetre)
 
 
 

@@ -1,39 +1,21 @@
--bois
-     fournisseur : bucheron - scierie
-#     sort :
-#         pluie de fleche :
-#             (cout : 3b | effet : A-1x"elfe des bois" | cible: unitée | valeur d'armée : 1++ )
-#         "name_is_not_define" :
-#             (cout : 3b | effet : V-2 | cible: alliés | valeur d'armée : 1++ )
-#     unité :
-#         elfe des bois :
-#             (cout : 1b,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2 )
-#         dryade :
-#             (cout : 3b,1n | effet : S-1 | cible: alliés | valeur d'armée : 1++ | point de vie : 3)
-#         Etre sylvestre :
-#             (cout : 4b | effet : S-15 | cible: chateau | valeur d'armée : 4++ | point de vie : 3)
-#         Seigneur de la foret :
-#             (cout : 9b,2n | effet : V--1000 | cible: adv | valeur d'armée : 7++ | point de vie : 3)
-# -nouriture
-#     fournisseur : paysan - ferme
-#     unité :
-#         soldat :
-#             (cout : 1n | effet : NULL | cible: NULL | valeur d'armée : 1++ | point de vie : 2)
-#         explorateur :
-#             (cout : 2n | effet : P-1 | cible: joueur | valeur d'armée : 1++ | point de vie : 2)
-# -acier
-#     fournisseur : mineur - forge
-#     sort :
-#         ALLUMER LA FORGE ! :
-#             (cout : 2a | effet : B-5x"forgeron" | cible: chateau)
-#         C'est ma tournée :
-#             (cout : 1a, 3n | effet : S-2 | cible: nain)
-#     unité :
-#         guerrier :
-#             (cout : 1a,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2)
-#         forgeron :
-#             (cout : 3a,1n | effet : B-10 | cible: chateau | valeur d'armée : 1++ | point de vie : 4)
-#         lanceur de hache :
-#             (cout : 4a,2n | effet : A-2 | cible: unité | valeur d'armée : 3++ | point de vie : 3)
-#         roi de la montagne :
-#             (cout : 9a,3n | effet : "a decider" | cible: unité | valeur d'armée : 7++ | point de vie : 9)
+#nom|type|cout|effet|cible|valeur d'armee|point de vie
+Bucheron|F|0X|1B|0|0|0|1
+Scierie|F|0X|2B|0|0|0|1
+Pluie de fleche|S|3B|A+1xV:elfe des bois|-R|1+|0
+Pas defini|S|3B|V+2|+A|1+|0
+Elfe des bois|U|1B,1N|0|0|2+|2
+Dryade|U|3B,1N|S+1|+A|1|3
+Etre sylvestre|U|4B|S+15|+C|4+|3
+Seigneur de la foret|U|9B,4N|V=0|-A|7|5
+Mineur|F|0x|1A|0|0|0|1
+Forge|F|0X|2A|0|0|0|1
+Allumer la forge !|S|2A|B+5xV:forgeron|+C|0|0
+C'est ma tournee|S|1A,3N|S+2|+N|0|0
+Guerrier|U|1A,1N|0|0|2+|2
+Forgeron|U|3A,1N|B+10|+C|1+|4
+lanceur de hache|U|4A,2N|A+2|+A|3+|3
+roi de la montagne|U|9A,3N| |-A|7|6
+paysan|F|0x|1N|0|0|0|1
+Ferme|F|0x|2N|0|0|0|1
+Soldat|U|1N|0|0|1+|2
+Explorateur|U|2N|P+1|+C|1+|2

@@ -15,7 +15,7 @@ def initialiser_joueur():
 def joueur_local():
     joueur_un, joueur_deux = initialiser_joueur()
     print (joueur_un.pseudo, joueur_deux.pseudo)
-    print (joueur_un.deck.name, joueur_deux.deck.name)
-    print (joueur_un.deck.effect, joueur_deux.deck.effect)
+    print (joueur_un.deck.nom, joueur_deux.deck.nom)
+    print (joueur_un.deck.effet, joueur_deux.deck.effet)
 
 joueur_local()

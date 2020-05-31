@@ -10,16 +10,18 @@ class Carte:
     - se la prochaine carte du deck """
     id_carte = 0
 
-    def __init__(self, c_nom, c_cout, c_ressource, c_effet, c_cible, c_valeur=0, c_previous=0, c_next=0):
+    def __init__(self, c_nom,c_type, c_cout, c_effet=0, c_cible=0, c_valeur=0,c_pdv=0, c_previous=0, c_next=0, c_head=0):
         self.id_carte = Carte.id_carte
         self.nom = c_nom
+        self.type = c_type
         self.cout = c_cout
         self.effet = c_effet
-        self.valeur = c_valeur
-        self.ressource = c_ressource
         self.cible = c_cible
+        self.valeur = c_valeur
+        self.pdv = c_pdv
         self.previous = c_previous
         self.next = c_next
+        self.head = c_head
 
         Carte.id_carte += 1
     
@@ -29,53 +31,11 @@ class Carte:
             carte = self.next
         return carte
 
-    def get_name(self):
-        return self.name
-
-    def set_name(self, new_name):
-        self.name = new_name
-
-    def get_ressource(self):
-        return self.ressource
-
-    def set_ressource(self, new_ressource):
-        self.ressource = new_ressource
-
-    def get_cout(self):
-        return self.cout
-
-    def set_cout(self, new_cout):
-        self.cost = new_cout
-
-    def get_effet(self):
-        return self.effet
-
-    def set_effect(self, new_effet):
-        self.effet = new_effet
-
-    def get_valeur(self):
-        return self.valeur
-
-    def set_valeur(self, new_valeur):
-        self.valeur = new_valeur
-
-    def get_cible(self):
-        return self.cible
-
-    def set_cible(self, new_cible):
-        self.target = new_cible
-
-    def get_rarete(self):
-        return self.rarete
-
-    def set_rarete(self, new_rarete):
-        self.rarete = new_rarete
-
-    def get_description(self):
-        return self.description
-
-    def set_description(self, new_description):
-        self.description = new_description
+    def afficher(self):
+        """Méthode permettant d'afficher notre objet"""
+        return "nom : ",self.nom, "cout :", self.cout, "effet :", self.effet, "cible :", self.cible,
+        "valeur :", self.valeur, "pdv :", self.pdv, "previous :", self.previous.nom, "next :", self.next.nom, "head :", self.head.nom
+                
 
 class Deck:
     def __init__(self, name):
@@ -97,18 +57,6 @@ class Deck:
     def get_nb_cards_in_deck(self):
         return len(self.cartes)
 
-class Card:
-    def __init__(self, name, ressource_type, cost, effect, value, target, rarity, description):
-        self.name = name
-        self.ressource_type = ressource_type
-        self.cost = cost
-        self.effect = effect
-        self.value = value
-        self.target = target
-        self.rarity = rarity
-        self.description = description
-
-    
 class Joueur:
     """Classe définissant un joueur caractérisé par :
     - son pseudo

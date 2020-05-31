@@ -6,6 +6,7 @@
         # ia
         # jeu en local
 # ecran jeu
+
     # 2 camp
         # un joueur
             # vie ( 100 max )
@@ -57,64 +58,64 @@
 
 
 
-'''les cartes
+# les cartes
 
 
--bois
-    fournisseur : bucheron(1++) - scierie(2++)
+# -bois
+#     fournisseur : bucheron(1++) - scierie(2++)
 
-    sort :
-        pluie de fleche :
-            (cout : 3b | effet : A-1x"elfe des bois" | cible: unitée )
-        "name_is_not_define" :
-            (cout : 3b | effet : V-2 | cible: alliés )
-
-
-    unité :
-        elfe des bois :
-            (cout : 1b,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2 )
-        dryade :
-            (cout : 3b,1n | effet : S-1 | cible: alliés | valeur d'armée : 1++ | point de vie : 3)
-        Etre sylvestre :
-            (cout : 4b | effet : S-15 | cible: chateau | valeur d'armée : 4++ | point de vie : 3)
-        Seigneur de la foret :
-            (cout : 9b,2n | effet : V--1000 | cible: adv | valeur d'armée : 7++ | point de vie : 3)
+#     sort :
+#         pluie de fleche :
+#             (cout : 3b | effet : A-1x"elfe des bois" | cible: unitée )
+#         "name_is_not_define" :
+#             (cout : 3b | effet : V-2 | cible: alliés )
 
 
+#     unité :
+#         elfe des bois :
+#             (cout : 1b,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2 )
+#         dryade :
+#             (cout : 3b,1n | effet : S-1 | cible: alliés | valeur d'armée : 1++ | point de vie : 3)
+#         Etre sylvestre :
+#             (cout : 4b | effet : S-15 | cible: chateau | valeur d'armée : 4++ | point de vie : 3)
+#         Seigneur de la foret :
+#             (cout : 9b,2n | effet : V--1000 | cible: adv | valeur d'armée : 7++ | point de vie : 3)
 
 
--nouriture
-    fournisseur : paysan(1++) - ferme(2++)
-
-    unité :
-        soldat :
-            (cout : 1n | effet : NULL | cible: NULL | valeur d'armée : 1++ | point de vie : 2)
-
-        explorateur :
-            (cout : 2n | effet : P-1 | cible: joueur | valeur d'armée : 1++ | point de vie : 2)
 
 
--acier
-    fournisseur : mineur(1++) - forge(2++)
+# -nouriture
+#     fournisseur : paysan(1++) - ferme(2++)
 
-    sort :
-        ALLUMER LA FORGE ! :
-            (cout : 2a | effet : B-5x"forgeron" | cible: chateau)
+#     unité :
+#         soldat :
+#             (cout : 1n | effet : NULL | cible: NULL | valeur d'armée : 1++ | point de vie : 2)
 
-        C'est ma tournée :
-            (cout : 1a, 3n | effet : S-2 | cible: nain)
+#         explorateur :
+#             (cout : 2n | effet : P-1 | cible: joueur | valeur d'armée : 1++ | point de vie : 2)
 
-    unité :
-        guerrier :
-            (cout : 1a,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2)
-        forgeron :
-            (cout : 3a,1n | effet : B-10 | cible: chateau | valeur d'armée : 1++ | point de vie : 4)
-        lanceur de hache :
-            (cout : 4a,2n | effet : A-2 | cible: unité | valeur d'armée : 3++ | point de vie : 3)
-        roi de la montagne :
-            (cout : 9a,3n | effet :  | cible:  | valeur d'armée : 7++ | point de vie : 9)
 
-'''
+# -acier
+#     fournisseur : mineur(1++) - forge(2++)
+
+#     sort :
+#         ALLUMER LA FORGE ! :
+#             (cout : 2a | effet : B-5x"forgeron" | cible: chateau)
+
+#         C'est ma tournée :
+#             (cout : 1a, 3n | effet : S-2 | cible: nain)
+
+#     unité :
+#         guerrier :
+#             (cout : 1a,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2)
+#         forgeron :
+#             (cout : 3a,1n | effet : B-10 | cible: chateau | valeur d'armée : 1++ | point de vie : 4)
+#         lanceur de hache :
+#             (cout : 4a,2n | effet : A-2 | cible: unité | valeur d'armée : 3++ | point de vie : 3)
+#         roi de la montagne :
+#             (cout : 9a,3n | effet :  | cible:  | valeur d'armée : 7++ | point de vie : 9)
+
+# 
 
 
 
@@ -129,6 +130,7 @@ from menu import *
 from local import *
 from classes import *
 from form import *
+from cartes import *
 import pygame
 from random import *
 #^ les includes ^#
@@ -165,8 +167,11 @@ def create_windows():
 
 def boucle_jeu(fenetre):
     end = 0
+    encyclo_c = initia_carte()
+    while encyclo_c != 0:
+        print(encyclo_c.afficher())
+        encyclo_c = encyclo_c.next
     while not end:
-
         end = menu_principal(fenetre)
 
 

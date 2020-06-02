@@ -1,5 +1,6 @@
 from classes import *
 from fichier import *
+from random import *
 
 #CREATION CARTES
 def initia_carte():
@@ -7,16 +8,125 @@ def initia_carte():
     for i in range(1,len(cartes)):
         carte = cartes[i].split("|")
         if i == 1:
-            encyclo_c = Carte(carte[0],carte[1],carte[2],carte[3],carte[4],carte[5],carte[6])
+            encyclo_c = Carte(carte[0],carte[1],carte[2],carte[3],carte[4],carte[5],int(carte[6]), carte[7], carte[8])
             encyclo_c.head = encyclo_c
         else:
             encyclo_c = crea_carte(cartes[i].split("|"),encyclo_c) 
     return encyclo_c
+
 def crea_carte(carte, encyclo):
     while encyclo.next != 0:
         encyclo = encyclo.next
-    encyclo.next = Carte(carte[0],carte[1],carte[2],carte[3],carte[4],carte[5],carte[6], encyclo,0,encyclo.head)
+    encyclo.next = Carte(carte[0],carte[1],carte[2],carte[3],carte[4],carte[5],int(carte[6]),carte[7],carte[8], encyclo,0,encyclo.head)
     return encyclo.head
+
+def effet_carte(carte, joueur):
+    if carte.effet[0] == 'S':
+        effet_soin(joueur, carte.effet, carte.cible)
+    elif carte.effet[0] == 'V':
+        effet_valeur(joueur, carte.effet, carte.cible)
+    elif carte.effet[0] == "B":
+        effet_bouclier(joueur, carte.effet)
+    elif carte.effet[0] == "A":
+        effet_attaque(joueur, carte.effet, carte.cible)
+
+def suppr_carte_plateau(joueur, carte):
+    del joueur.plateau[carte]
+
+def attaquer(joueur, carte, attaque, c_type):
+    if carte.type == c_type:
+        if carte.pdv - attaque >= 0:
+            carte.pdv = carte.pdv - attaque
+        else:
+            suppr_carte_plateau(joueur, carte)
+    else:
+        return 1    
+    return 0
+
+def effet_attaque(joueur, attaque, cible):
+    attaque = int(attaque[1:])
+    if cible[1] == "R":
+        verif = 1
+        while verif == 1 :
+            alea = randint(0,len(joueur.plateau))
+            count = 0
+            for carte in joueur.plateau:
+                if count == alea:
+                    verif = attaquer(joueur, carte, attaque, "U")
+                else:
+                    count = count + 1
+def effet_bouclier(joueur, bouclier):
+    bouclier = int(bouclier[1:])
+    joueur.bouclier += bouclier
+            
+def change_valeur(carte, valeur, c_type, signe):
+    if carte.type[0] == c_type:
+        if signe == "+":
+            if carte.valeur + valeur <= 10:
+                carte.valeur = carte.valeur + valeur
+            else:
+                carte.valeur = 10
+        elif signe == "-":
+            if carte.valeur - valeur >= 1 :
+                carte.valeur = carte.valeur - valeur
+            else:
+                carte.valeur = 1
+
+def effet_valeur(joueur, valeur, cible):
+    
+    valeur = int(valeur[2:])
+    if type(cible) == Carte:
+        change_valeur(cible, valeur, "U", "+")
+    elif cible[1] == "A":
+        for carte in joueur.plateau:
+            change_valeur(cible, valeur, "U", cible[0])
+    elif cible[1] == "R":
+        alea = randint(0,len(joueur.plateau))
+        count = 0
+        for carte in joueur.plateau:
+            if count == alea:
+                change_valeur(carte, valeur, "U", cible[0])
+            else:
+                count = count + 1  
+
+def soigner(carte, soin, c_type):
+    if carte.type[0] == c_type:
+        if (carte.pdv + soin) <= carte.pdv_max:
+            carte.pdv = carte.pv + soin
+        else:
+            carte.pdv = carte.pdv_max
+    else:
+        return 1
+    return 0
+def effet_soin(joueur, soin, cible):
+    nbr = ""
+    soin.remove(soin[0])
+    soin = int(soin)
+    verif = 1
+    while verif == 1:
+        if type(cible) is Carte:
+            verif = soigner(cible, soin, "U")
+        if cible[1] == "C": #soigne le chateau
+            if joueur.vie + soin <= 100:
+                joueur.vie = joueur.vie + soin
+            else:
+                joueur.vie = 100
+        elif cible[1] == "A": #soigne toute l'armee le chateau
+            for carte in joueur.plateau:
+                verif = soigner(carte, soin, "U") 
+        elif cible[1] =="N": #soigne les nains
+            for carte in joueur.plateau:
+                verif = soigner(carte, soin, "N")
+        elif cible[1] =="R": #soigne un allié random
+            alea = randint(0,len(joueur.plateau))
+            count = 0
+            for carte in joueur.plateau:
+                if count == alea:
+                    verif = soigner(carte, soin, "U")
+                else:
+                    count = count + 1
+
+
 
 # def symbole_type(c_type):
 #     if c_type == 'F':
@@ -43,114 +153,40 @@ def crea_carte(carte, encyclo):
 #     return {"Bois" : bois, "Acier" : acier, "Nourriture" : nourriture}
 
 
-#SORTS BOIS
-def Pluie_de_fleche(lanceur, cible): #a finir
-    #pluie de fleche :
-    #(cout : 3b | effet : A-1x"elfe des bois" | cible: unitée | valeur d'armée : 1++ )
-    carte = lanceur.recherche_p("elfe des bois")
-    if (carte):
-        attaque = carte.items()
-    for i in range(0, attaque):
-        print("test1")
-
-#UNITE BOIS 
-def elfe_des_bois(joueur) : 
-    #elfes des bois :
-    #(cout : 1b,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2 )
-    if (joueur.recherche_p("elfe des bois")):
-        joueur.plateau["elfe des bois"] = joueur.plateau["elfe des bois"] + 2
+def ajouter_au_plateau(joueur, carte):
+    if (joueur.recherche_p(carte.nom)):
+        joueur.plateau[carte.nom] = joueur.plateau[carte.nom] + int(valeur) 
     else:
-        joueur.plateau["elfe des bois"] = 2
+        joueur.plateau[carte.nom] = int(valeur)
 
 
-def dryade (joueur):
-    #dryade :
-    #(cout : 3b,1n | effet : S-1 | cible: alliés | valeur d'armée : 1++ | point de vie : 3)
-    if (joueur.recherche_p("dryade")):
-        joueur.plateau["dryade"] = joueur.plateau["dryade"] + 1
-    else:
-        joueur.plateau["dryade"] = 1
-
-
-def etre_sylvestre(joueur):
-        #Etre sylvestre :
-        #(cout : 4b | effet : S-15 | cible: chateau | valeur d'armée : 4++ | point de vie : 3)
-        if (joueur.recherche_p("etre sylvestre")):
-            joueur.plateau["etre sylvestre"] = joueur.plateau["etre sylvestre"] + 4
+def piocher(joueur):
+    if len(joueur.deck.cartes) > 7:
+        return joueur
+    rarete = {"un" : 1, "deux" : 2, "trois" : 3}
+    for carte in joueur.deck.cartes:
+        if joueur.deck.cartes.rarete == "1":
+            rarete["un"] = rarete["un"] + 1
+        elif joueur.deck.cartes.rarete == "2":
+            rarete["deux"] = rarete["deux"] + 1
         else:
-            joueur.plateau["etre sylvestre"] = 4
-
-def seigneur_dlf(joueur):
-    #Seigneur de la foret :
-    #(cout : 9b,2n | effet : V--1000 | cible: adv | valeur d'armée : 7++ | point de vie : 3)
-    if (joueur.recherche_p("seigneur dlf")):
-        print("vous ne pouvez avoir qu'un seul seigneur de la forêt sur le plateau")
+            rarete["trois"] = rarete["trois"] + 1
+    alea = randint(0,100)
+    if alea % 2 == 0:
+        rarete = 1
+        num_carte = randint(0,rarete["un"])
+    elif alea % 3 == 0:
+        rarete = 2
+        num_carte = randint(0,rarete["deux"])
     else:
-        joueur.plateau["seigneur dlf"] = 7
+        rarete = 3
+        num_carte = randint(0,rarete["trois"])
+    count = 0
+    for i in range(0, Carte.id_carte):
+        if joueur.deck.cartes[i].rarete == '1':
+            count + count + 1
+            if count == num_carte:
+                return joueur.deck.cartes[i]
 
-#SORTS ACIER
 
-def Allumer_forge(joueur):
-    #ALLUMER LA FORGE ! :
-    #(cout : 2a | effet : B-5x"forgeron" | cible: chateau)
-    if(joueur.recherche_p("forgeron")):
-        joueur.bouclier = joueur.bouclier +  5 * joueur.plateau["forgeron"]
-    else:
-        print("Vous n'avez pas de forgeron sur le jeu")
-
-def la_tournee(joueur): #a faire
-    #C'est ma tournée :
-    #(cout : 1a, 3n | effet : S-2 | cible: nain)
-    return 0
-
-#UNITE ACIER
-
-def guerrier(joueur):
-    #guerrier :
-    #(cout : 1a,1n | effet : NULL | cible: NULL | valeur d'armée : 2++ | point de vie : 2)
-    if (joueur.recherche_p("guerrier")):
-        joueur.plateau["guerrier"] = joueur.plateau["guerrier"] + 2
-    else:
-        joueur.plateau["guerrier"] = 2
-
-def forgeron(joueur):
-    #forgeron :
-    #(cout : 3a,1n | effet : B-10 | cible: chateau | valeur d'armée : 1++ | point de vie : 4)
-    if (joueur.recherche_p("forgeron")):
-        joueur.plateau["forgeron"] = joueur.plateau["forgeron"] + 1
-    else:
-        joueur.plateau["forgeron"] = 1
-
-def lanceur_de_hache(joueur):
-    #lanceur de hache :
-    #(cout : 4a,2n | effet : A-2 | cible: unité | valeur d'armée : 3++ | point de vie : 3)
-    if (joueur.recherche_p("lanceur_de_hache")):
-        joueur.plateau["lanceur_de_hache"] = joueur.plateau["lanceur_de_hache"] + 1
-    else:
-        joueur.plateau["lanceur_de_hache"] = 1
-    
-def roi_dlm(joueur):
-    #roi de la montagne :
-    #(cout : 9a,3n | effet : "a decider" | cible: unité | valeur d'armée : 7++ | point de vie : 9)
-    if (joueur.recherche_p("roi dlm")):
-        print("vous ne pouvez avoir qu'un seul roi de la montagne sur le plateau")
-    else:
-        joueur.plateau["roi dlm"] = 7
-
-#UNITE NOURRITURE
-
-def soldat(joueur):
-    #soldat :
-    #(cout : 1n | effet : NULL | cible: NULL | valeur d'armée : 1++ | point de vie : 2)
-    if (joueur.recherche_p("soldat")):
-        joueur.plateau["soldat"] = joueur.plateau["soldat"] + 1
-    else:
-        joueur.plateau["soldat"] = 1
-
-def explorateur(joueur):
-    #explorateur :
-    #(cout : 2n | effet : P-1 | cible: joueur | valeur d'armée : 1++ | point de vie : 2)
-    if (joueur.recherche_p("explorateur")):
-        joueur.plateau["explorateur"] = joueur.plateau["explorateur"] + 1
-    else:
-        joueur.plateau["explorateur"] = 1
+        

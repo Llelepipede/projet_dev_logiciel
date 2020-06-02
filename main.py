@@ -167,10 +167,6 @@ def create_windows():
 
 def boucle_jeu(fenetre):
     end = 0
-    encyclo_c = initia_carte()
-    while encyclo_c != 0:
-        print(encyclo_c.afficher())
-        encyclo_c = encyclo_c.next
     while not end:
         end = menu_principal(fenetre)
 

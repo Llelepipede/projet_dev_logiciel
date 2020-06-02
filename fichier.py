@@ -9,6 +9,7 @@ def open_fichier(chemin):
         else:
             tableau.append(ligne)
             ligne = ""
-    return tableau
     fichier.close()
+    return tableau
+    
 

@@ -166,8 +166,14 @@ def create_windows():
 
 
 def boucle_jeu(fenetre):
+<<<<<<< HEAD
 
     menu_principal(fenetre)
+=======
+    end = 0
+    while not end:
+        end = menu_principal(fenetre)
+>>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
 
 
 

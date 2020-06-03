@@ -1,19 +1,6 @@
 import pygame
 
 
-class carte:
-
-    id_carte = 0
-
-    def __init__(self, c_name, c_previous=0, c_next=0):
-        self.id_carte = carte.id_carte
-        self.name = c_name
-
-        self.previous = c_previous
-        self.next = c_next
-
-        carte.id_carte += 1
-
 def draw(deck, main):
     if deck and len(main)< 7:
         main.append(deck.id_carte)
@@ -22,9 +9,6 @@ def draw(deck, main):
 def print_hand(main):
     for k in main:
         print(k)
-
-
-
 
 
 def sizeof_deck(deck):

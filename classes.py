@@ -36,19 +36,13 @@ class Carte:
 
     def afficher(self):
         """Méthode permettant d'afficher notre objet"""
-<<<<<<< HEAD
         return "nom : "+ self.nom + "cout :"+ self.cout + "effet :"+ self.effet + "cible :"+ self.cible +"valeur :" + self.valeur + "pdv :"+ int(self.pdv) + "previous :" + self.previous.nom + "next :"+ self.next.nom + "head :"+ self.head.nom
-=======
-        return "nom : "+ self.nom + "cout :"+ self.cout + "effet :"+ self.effet + "cible :"+ self.cible +"valeur :" + self.valeur + "pdv :"+ self.pdv + "previous :" + self.previous.nom + "next :"+ self.next.nom + "head :"+ self.head.nom
-                
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
 
 class Deck:
-    def __init__(self, nom):
-        self.nom = nom
+    def __init__(self, name):
+        self.name = name
         self.cartes = []
 
-<<<<<<< HEAD
     def reset_deck(self):
         self.cartes = []
 
@@ -65,14 +59,11 @@ class Deck:
         return len(self.cartes)
 
 
-=======
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
 class Joueur:
     """Classe définissant un joueur caractérisé par :
     - son pseudo
     - sa vie
     - son bouclier
-<<<<<<< HEAD
     - attaque = à la valeur d'armée
     - son deck
     - sa main
@@ -81,20 +72,10 @@ class Joueur:
     - son etat"""
 
     def __init__(self, j_pseudo, j_deck ,j_main, j_valeur = 0, j_vie = 100, j_bouclier = 30):
-=======
-    - La valeur d'armée
-    - son deck 
-    - sa main
-    - ses ressources """
-
-    def __init__(self, j_pseudo, j_vie, j_bouclier,j_deck):
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
         self.pseudo = j_pseudo
         self.vie = j_vie
         self.bouclier = j_bouclier
-        self.valeur = 0
         self.deck = j_deck
-<<<<<<< HEAD
         self.main = j_main
         self.valeur = j_valeur
         self.plateau = {}
@@ -105,17 +86,6 @@ class Joueur:
     #     return "pseudo : {}, vie : {}, bouclier : {}".format(
     #             self.pseudo, self.vie, self.bouclier)
 
-=======
-        self.main = []
-        self.plateau = {}
-        self.ressource = {"A" : 0, "B" : 0, "N" : 0}
-    
-    def __str__(self):
-        """Méthode permettant d'afficher notre objet"""
-        return "pseudo : {}, vie : {}, bouclier : {}".format(
-                self.pseudo, self.vie, self.bouclier)
-    
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
     def recherche_p(self, carte):
         for i in self.plateau:
             if (i == carte):
@@ -123,13 +93,6 @@ class Joueur:
         return 0
 
 class data_jeu:
-<<<<<<< HEAD
-=======
-    def __init__(self,d_joueur0, d_joueur1, d_tour = 0):
-        self.joueur0 = d_joueur0
-        self.joueur1 = d_joueur1
-        self.tour = d_tour
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
 
     def __init__(self,d_joueur0, d_joueur1, d_tour = 0):
         self.joueur0 = d_joueur0

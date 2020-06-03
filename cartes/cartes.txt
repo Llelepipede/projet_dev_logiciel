@@ -2,32 +2,18 @@
 Bucheron|F|0X|1B|0|0|1|1|Donne un bois chaque tour
 Scierie|F|0X|2B|0|0|1|2|Donne deux bois chaque tour
 Elfe des bois|UE|1B,1N|0|0|2|2|1|invoque un elfe des bois
-<<<<<<< HEAD
 Dryade|U|3B,1N|S1|+A|1|3|2|invoque une dryade qui soigne de un les alliés
 Etre sylvestre|U|4B|S15|+C|4|3|2|invoque un arbre qui soigne de 15 le chateau
 Seigneur de la foret|UE|7B,4N|P3|-A|7|5|3|invoque le seigneur de la foret qui pioche 3 cartes
 Mineur|F|0X|1A|0|0|1|1|Donne un acier chaque tour
-=======
-Dryade|U|3B,1N|S1|+A|1|3|2|invoque une dryade qui soigne de un les alliÃ©s
-Etre sylvestre|U|4B|S15|+C|4|3|2|invoque un arbre qui soigne de 15 le chateau
-Seigneur de la foret|UE|7B,4N|P3|-A|7|5|3|invoque le seigneur de la foret qui pioche 3 cartes
-Mineur|F|0x|1A|0|0|1|1|Donne un acier chaque tour
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda
 Forge|F|0X|2A|0|0|1|2|Donne deux aciers chaque tour
 C'est ma tournee|S|1A,3N|S2|+N|0|0|1|Soigne les nains de deux pv
 Guerrier|UN|1A,1N|0|0|2|2|1|invoque un guerrier
 Forgeron|UN|3A,1N|B+10|+C|1|4|2|invoque un forgeron qui augmente le bouclier
 lanceur de hache|UN|4A,2N|A2|-R|3|3|2|invoque un lanceur qui attaque un ennemi alatoire
 roi de la montagne|UN|7A,3N|P3|-A|7|6|3|invoque le roi de la montagne qui pioche 3 cartes
-<<<<<<< HEAD
 paysan|F|0X|1N|0|0|1|1|Donne un nourriture chaque tour
 Ferme|F|0X|2N|0|0|1|2|Donne deux nourritures chaque tour
 Soldat|U|1N|0|0|1|2|1|invoque un soldat
 Explorateur|U|2N|P1|+C|1|2|1|invoque un explorateur qui pioche 1 carte
 
-=======
-paysan|F|0x|1N|0|0|1|1|Donne un nourriture chaque tour
-Ferme|F|0x|2N|0|0|1|2|Donne deux nourritures chaque tour
-Soldat|U|1N|0|0|1|2|1|invoque un soldat
-Explorateur|U|2N|P1|+C|1|2|1|invoque un explorateur qui pioche 1 carte
->>>>>>> 97af1be9fab035120941e4376959f0f31a377fda

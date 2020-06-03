@@ -50,12 +50,21 @@ def ecran_jeu(fenetre,data):
         jeu_form(fenetre,choix)
         jeu_form_text(fenetre)
         jeu_form_data(fenetre,data)
+        if data.joueur0.vie <= 0:
+            return perdu(data.joueur0)
+        elif data.joueur1.vie <= 0:
+            return perdu(data.joueur1)
 
     return end
 
+def perdu(joueur):
+    message_display(fenetre,joueur.pseudo + "a perdu !",100,(0,0,0),400,470)
+    pygame.display.update()
+
+
 def actualise(data):
     data.joueur0 = armee(data.joueur0)
-    data.joueur1= armee(data.joueur1)
+    data.joueur1 = armee(data.joueur1)
 
     return data
 
@@ -97,19 +106,35 @@ def activate_choix(fenetre,data,choix):
         return voir_main(fenetre,data)
     elif choix == 1:
         return voir_plateau(fenetre,data)
-    elif choix == 5:
+    elif choix > 1:
         return fin_de_tour(fenetre,data)
 
 def fin_de_tour(fenetre,data):
 
+
     if data.tour %2 == 0:
         data.joueur1 = piocher(data.joueur1)
         augm_ressource(data.joueur1)
+        if data.joueur0.valeur :
+            if data.joueur1.bouclier - data.joueur0.valeur < 0 :
+                reste = data.joueur0.valeur - data.joueur1.bouclier
+                data.joueur1.bouclier = 0
+                data.joueur1.vie = data.joueur1.vie - reste
+            else:
+                data.joueur1.bouclier = data.joueur1.bouclier - data.joueur0.valeur
     elif data.tour %2 == 1:
         data.joueur0 = piocher(data.joueur0)
         augm_ressource(data.joueur0)
+        if data.joueur1.valeur:
+            if data.joueur0.bouclier - data.joueur1.valeur < 0 :
+                reste = data.joueur1.valeur - data.joueur0.bouclier
+                data.joueur0.bouclier = 0
+                data.joueur0.vie = data.joueur0.vie - reste
+            else:
+                data.joueur0.bouclier = data.joueur0.bouclier - data.joueur1.valeur
+
     data.tour += 1
-    data = attaquer_armee(data)
+
     return data
 
 
@@ -117,6 +142,7 @@ def voir_main(fenetre,data):
     cursor_y = 0
     end = 0
     while not end:
+        joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN :
@@ -125,7 +151,7 @@ def voir_main(fenetre,data):
                 if event.key == 274: # bas
                     cursor_y += 1
                 if event.key == 13: # entrée
-                    if (not cursor_y > len(data.joueur0.main)) and len(data.joueur0.main):
+                    if (not cursor_y >= len(joueur.main)) and len(joueur.main):
                         data = jouer_carte(data,cursor_y)
 
                 if event.key == 27: # echap
@@ -147,7 +173,7 @@ def jouer_carte(data,choix):
     if not jouable:
         return data
     else:
-        #effet_carte(joueur.main[choix], joueur)
+        #effet_carte(joueur.main[choix], data)
 
         ajouter_au_plateau(joueur,joueur.main[choix])
         del joueur.main[choix]

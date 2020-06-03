@@ -150,8 +150,8 @@ def voir_plateau_form_data(fenetre,data):
     size_of_text = 25
     for carte in joueur.plateau:
 
-        message_display(fenetre,"nom: " + str(carte.nom),size_of_text,(0,0,0),17,15+(i*154))
-        message_display(fenetre,"valeur d'armée': " + str(joueur.plateau[carte]),size_of_text,(0,0,0),17,45+(i*154))
+        message_display(fenetre,"nom: " + str(carte.nom),size_of_text,(0,0,0),17,13+(i*77))
+        message_display(fenetre,"valeur d'armée': " + str(joueur.plateau[carte]),size_of_text,(0,0,0),17,45+(i*77))
         i += 1
 
 

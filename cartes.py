@@ -76,20 +76,27 @@ def piocher(joueur):
                 return joueur
             count = count + 1
 
-def effet_carte(carte, joueur):
-    if carte.effet[0] == 'S':
-        effet_soin(joueur, carte.effet, carte.cible)
-    elif carte.effet[0] == 'V':
-        effet_valeur(joueur, carte.effet, carte.cible)
-    elif carte.effet[0] == "B":
-        effet_bouclier(joueur, carte.effet)
-    elif carte.effet[0] == "A":
-        effet_attaque(joueur, carte.effet, carte.cible)
+def effet_carte(carte, data):
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
 
+    print(carte.effet[0])
+    if carte.effet[0] == 'S':
+        data = effet_soin(data, carte.effet, carte.cible)
+    elif carte.effet[0] == 'V':
+        data = effet_valeur(data, carte.effet, carte.cible)
+    elif carte.effet[0] == "B":
+        data = effet_bouclier(data, carte.effet)
+    elif carte.effet[0] == "A":
+        data = effet_attaque(data, carte.effet, carte.cible)
+    elif carte.effet[0] == "P":
+        joueur = piocher(joueur)
+
+    return data
 def suppr_carte_plateau(joueur, carte):
     del joueur.plateau[carte]
 
-def attaquer(joueur, carte, attaque, c_type):
+def attaquer(data, carte, attaque, c_type):
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
     if carte.type == c_type:
         if carte.pdv - attaque >= 0:
             carte.pdv = carte.pdv - attaque
@@ -100,15 +107,17 @@ def attaquer(joueur, carte, attaque, c_type):
     return 0
 
 def attaquer_armee(data):
-    if data.tour % 2 == 0:
+    if data.tour % 2 == 1:
         if data.joueur0.bouclier - data.joueur1.valeur < 0 :
             reste = data.joueur1.valeur - data.joueur0.bouclier
+            data.joueur0.bouclier = data.joueur1.valeur - reste
             data.joueur0.vie = data.joueur0.vie - reste
         else:
             data.joueur0.bouclier = data.joueur0.bouclier - data.joueur1.valeur
     else:
         if data.joueur1.bouclier - data.joueur0.valeur < 0 :
             reste = data.joueur0.valeur - data.joueur1.bouclier
+            data.joueur0.bouclier = data.joueur1.valeur - reste
             data.joueur1.vie = data.joueur1.vie - reste
         else:
             data.joueur1.bouclier = data.joueur1.bouclier - data.joueur1.valeur
@@ -123,7 +132,8 @@ def augm_ressource(joueur):
             else:
                 joueur.ressource[carte.effet[1]] = 10
 
-def effet_attaque(joueur, attaque, cible):
+def effet_attaque(data, attaque, cible):
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
     attaque = int(attaque[1:])
     if cible[1] == "R":
         verif = 1
@@ -135,7 +145,8 @@ def effet_attaque(joueur, attaque, cible):
                     verif = attaquer(joueur, carte, attaque, "U")
                 else:
                     count = count + 1
-def effet_bouclier(joueur, bouclier):
+def effet_bouclier(data, bouclier):
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
     bouclier = int(bouclier[1:])
     joueur.bouclier += bouclier
 
@@ -152,8 +163,9 @@ def change_valeur(carte, valeur, c_type, signe):
             else:
                 carte.valeur = 1
 
-def effet_valeur(joueur, valeur, cible):
+def effet_valeur(data, valeur, cible):
 
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
     valeur = int(valeur[2:])
     if type(cible) == Carte:
         change_valeur(cible, valeur, "U", "+")
@@ -178,10 +190,10 @@ def soigner(carte, soin, c_type):
     else:
         return 1
     return 0
-def effet_soin(joueur, soin, cible):
+def effet_soin(data, soin, cible):
+    joueur = data.joueur0 if data.tour % 2 == 0 else data.joueur1
     nbr = ""
-    soin.remove(soin[0])
-    soin = int(soin)
+    soin = int(soin[1:])
     verif = 1
     while verif == 1:
         if type(cible) is Carte:

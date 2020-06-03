@@ -18,4 +18,4 @@ def joueur_local():
     print (joueur_un.deck.nom, joueur_deux.deck.nom)
     print (joueur_un.deck.effet, joueur_deux.deck.effet)
 
-joueur_local()
+#joueur_local()

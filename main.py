@@ -115,7 +115,7 @@
 #         roi de la montagne :
 #             (cout : 9a,3n | effet :  | cible:  | valeur d'armée : 7++ | point de vie : 9)
 
-# 
+#
 
 
 
@@ -153,8 +153,8 @@ def quit_pygame():
 
 
 def create_windows():
-    dim_x = 1300  #set les dimension souhaité pour la fenetre
-    dim_y = 0
+    dim_x = 1230  #set les dimension souhaité pour la fenetre
+    dim_y = 0 #1080
     fenetre = pygame.display.set_mode((dim_x,dim_y),pygame.FULLSCREEN)  #crée la fenetre de taille dim_x/dim_y
 
 
@@ -166,13 +166,8 @@ def create_windows():
 
 
 def boucle_jeu(fenetre):
-    end = 0
-    encyclo_c = initia_carte()
-    while encyclo_c != 0:
-        print(encyclo_c.afficher())
-        encyclo_c = encyclo_c.next
-    while not end:
-        end = menu_principal(fenetre)
+
+    menu_principal(fenetre)
 
 
 
